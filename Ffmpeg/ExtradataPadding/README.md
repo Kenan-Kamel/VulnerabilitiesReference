@@ -27,7 +27,7 @@ The upstream fixes were merged into FFmpeg master in PR #22988 ("Fix various ext
 
 ## Disclosure / attribution
 
-- Original reporter/found by : **Kenan Alghythee**
+- Original reporter/found by: **Kenan Alghythee**
 - Upstream PR includes: `Reported-by: Kenan Alghythee <kalghy2@uic.edu>`
 - After the fixes were merged, FFmpeg requested that CVE number(s) be obtained from MITRE for listing on FFmpeg's security page(email)
 ## Credits
@@ -41,4 +41,4 @@ The upstream fixes were merged into FFmpeg master in PR #22988 ("Fix various ext
 
 ## Notes
 
-Initial analysis identified additional related crash sites during review of extradata padding behavior. However, the upstream merged fixes and CVE request scope are limited to the three vulnerabilities above.
+Initial analysis identified additional related crash sites during review of extradata padding behavior. However, the upstream merged fixes and CVE request scope are limited to the three vulnerabilities above. The total found in relation to the CVEs is 6, and only 3 represent a distant vulnerabilities.
