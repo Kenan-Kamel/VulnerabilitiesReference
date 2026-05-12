@@ -6,9 +6,9 @@ The issues involve insufficient padding of extradata buffers before later bitrea
 
 The upstream fixes were merged into FFmpeg master in PR #22988 ("Fix various extradata padding issues") and related commits:
 
-f3c92329e9291999542664b76a6500927a78b43b
-2032efe9ebb2d030ff257d72013df00f137e7766
-f3c92329e9291999542664b76a6500927a78b43b
+- f3c92329e9291999542664b76a6500927a78b43b
+- 2032efe9ebb2d030ff257d72013df00f137e7766
+- f3c92329e9291999542664b76a6500927a78b43b
 
 ## Included vulnerabilities
 
