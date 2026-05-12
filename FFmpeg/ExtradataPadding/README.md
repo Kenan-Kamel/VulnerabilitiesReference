@@ -25,7 +25,7 @@ The upstream fixes were merged into FFmpeg master in PR #22988 ("Fix various ext
    - Fix: merged in PR #22988 / master commit `016a241102`
    - Summary: copied extradata lacked required padding before GetBitContext-based access
 
-## Disclosure / attribution
+## Disclosure / attribution / MITRE submitter
 
 - Original reporter/found by: **Kenan Alghythee**
 - Upstream PR includes: `Reported-by: Kenan Alghythee <kalghy2@uic.edu>`
