@@ -33,6 +33,7 @@ The upstream fixes were merged into FFmpeg master in PR #22988 ("Fix various ext
    - Function: `mov_read_iacb`
    - Fix: merged in PR #22988 / master commit `016a241102`
    - Summary: insufficiently padded extradata in the MOV parsing path
+   - This issue affects the MOV parsing path in `libavformat/mov.c` (`mov_read_iacb`), where codec extradata was allocated without the required padding before later bitreader access. Crafted input could trigger a heap-buffer-overflow on read and cause a crash / denial-of-service condition. The issue was introduced by `fe637161dbe64cccae98ca20c193ef25bebca02e` and fixed upstream in `8439e0203744a30d280668fcd086f74ed5001da1`.
    - Crashes:- refer to the folder [AsanCrashes Report group 2](./AsanCrashesReports/group_2_iamf_mov)
 
 3. **IAMF writer**
