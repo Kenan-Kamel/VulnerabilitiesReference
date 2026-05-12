@@ -1,0 +1,53 @@
+********* bug6_wmaenc_75 *********
+=================================================================
+==98021==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x50900000004b at pc 0x56974289997d bp 0x7fff17f3d690 sp 0x7fff17f3d688
+READ of size 8 at 0x50900000004b thread T0
+    #0 0x56974289997c in get_bits_long /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavcodec/get_bits.h:436:9
+    #1 0x56974289997c in main /home/kenan/ffmpeg_extradata_bugs/poc/bug6_wmaenc_75.c:44:5
+    #2 0x775b4e62a1c9 in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #3 0x775b4e62a28a in __libc_start_main csu/../csu/libc-start.c:360:3
+    #4 0x5697427c03a4 in _start (/home/kenan/ffmpeg_extradata_bugs/poc/bug6_wmaenc_75+0x2d3a4) (BuildId: 5c8ba2d53c68aa3a6418bb653ae0f4e8f10e107a)
+
+0x50900000004b is located 1 bytes after 10-byte region [0x509000000040,0x50900000004a)
+allocated by thread T0 here:
+    #0 0x56974285bcdb in posix_memalign (/home/kenan/ffmpeg_extradata_bugs/poc/bug6_wmaenc_75+0xc8cdb) (BuildId: 5c8ba2d53c68aa3a6418bb653ae0f4e8f10e107a)
+    #1 0x569742899a9e in av_malloc /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavutil/mem.c:107:9
+    #2 0x569742899e11 in av_mallocz /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavutil/mem.c:258:17
+    #3 0x5697428997bb in main /home/kenan/ffmpeg_extradata_bugs/poc/bug6_wmaenc_75.c:25:26
+    #4 0x775b4e62a1c9 in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #5 0x775b4e62a28a in __libc_start_main csu/../csu/libc-start.c:360:3
+    #6 0x5697427c03a4 in _start (/home/kenan/ffmpeg_extradata_bugs/poc/bug6_wmaenc_75+0x2d3a4) (BuildId: 5c8ba2d53c68aa3a6418bb653ae0f4e8f10e107a)
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavcodec/get_bits.h:436:9 in get_bits_long
+Shadow bytes around the buggy address:
+  0x508ffffffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x508ffffffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x508ffffffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x508fffffff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x508fffffff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x509000000000: fa fa fa fa fa fa fa fa 00[02]fa fa fa fa fa fa
+  0x509000000080: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000180: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000200: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000280: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==98021==ABORTING

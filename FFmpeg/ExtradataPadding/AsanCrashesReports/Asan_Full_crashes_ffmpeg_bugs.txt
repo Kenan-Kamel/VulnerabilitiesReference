@@ -1,0 +1,335 @@
+ *********** bug1_iamf_writer_129_1244 *****************
+=================================================================
+==98011==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x5090000005c7 at pc 0x596e2ce11961 bp 0x7ffd9d286770 sp 0x7ffd9d286768
+READ of size 8 at 0x5090000005c7 thread T0
+    #0 0x596e2ce11960 in get_bits_long /home/kenan/ffmpeg_extradata_bugs/ffmpeg/./libavcodec/get_bits.h:436:9
+    #1 0x596e2ce10e7a in update_extradata /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavformat/iamf_writer.c:61:25
+    #2 0x596e2ce0a183 in fill_codec_config /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavformat/iamf_writer.c:133:15
+    #3 0x596e2ce0a183 in ff_iamf_add_audio_element /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavformat/iamf_writer.c:312:11
+    #4 0x596e2cb95d08 in iamf_init /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavformat/iamfenc.c:94:15
+    #5 0x596e2ca64989 in init_muxer /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavformat/mux.c:368:20
+    #6 0x596e2ca64989 in avformat_init_output /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavformat/mux.c:451:16
+    #7 0x596e2ca652b2 in avformat_write_header /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavformat/mux.c:475:20
+    #8 0x596e2ca5474b in main /home/kenan/ffmpeg_extradata_bugs/poc/bug1_iamf_writer_129_1244.c:64:5
+    #9 0x77adca02a1c9 in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #10 0x77adca02a28a in __libc_start_main csu/../csu/libc-start.c:360:3
+    #11 0x596e2c97afe4 in _start (/home/kenan/ffmpeg_extradata_bugs/poc/bug1_iamf_writer_129_1244+0x433fe4) (BuildId: ae070e9d8386e213ea275bebdd45220ed4ce91f8)
+
+0x5090000005c7 is located 2 bytes after 5-byte region [0x5090000005c0,0x5090000005c5)
+allocated by thread T0 here:
+    #0 0x596e2ca1691b in posix_memalign (/home/kenan/ffmpeg_extradata_bugs/poc/bug1_iamf_writer_129_1244+0x4cf91b) (BuildId: ae070e9d8386e213ea275bebdd45220ed4ce91f8)
+    #1 0x596e2dea9c72 in av_malloc /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavutil/mem.c:107:9
+    #2 0x596e2deaa11b in av_memdup /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavutil/mem.c:308:15
+    #3 0x596e2ce0a107 in fill_codec_config /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavformat/iamf_writer.c:129:35
+    #4 0x596e2ce0a107 in ff_iamf_add_audio_element /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavformat/iamf_writer.c:312:11
+    #5 0x596e2cb95d08 in iamf_init /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavformat/iamfenc.c:94:15
+    #6 0x596e2ca64989 in init_muxer /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavformat/mux.c:368:20
+    #7 0x596e2ca64989 in avformat_init_output /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavformat/mux.c:451:16
+    #8 0x596e2ca652b2 in avformat_write_header /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavformat/mux.c:475:20
+    #9 0x596e2ca5474b in main /home/kenan/ffmpeg_extradata_bugs/poc/bug1_iamf_writer_129_1244.c:64:5
+    #10 0x77adca02a1c9 in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #11 0x77adca02a28a in __libc_start_main csu/../csu/libc-start.c:360:3
+    #12 0x596e2c97afe4 in _start (/home/kenan/ffmpeg_extradata_bugs/poc/bug1_iamf_writer_129_1244+0x433fe4) (BuildId: ae070e9d8386e213ea275bebdd45220ed4ce91f8)
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow /home/kenan/ffmpeg_extradata_bugs/ffmpeg/./libavcodec/get_bits.h:436:9 in get_bits_long
+Shadow bytes around the buggy address:
+  0x509000000300: fd fd fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000380: fd fd fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000400: fd fd fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000480: fa fa fa fa fa fa fa fa 00 00 fa fa fa fa fa fa
+  0x509000000500: fa fa fa fa fa fa fa fa 00 00 00 00 00 fa fa fa
+=>0x509000000580: fa fa fa fa fa fa fa fa[05]fa fa fa fa fa fa fa
+  0x509000000600: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000680: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000700: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000780: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000800: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==98011==ABORTING
+
+*********** bug2_iamf_parse_131 *****************
+=================================================================
+==98013==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x509000000063 at pc 0x56addf3c68df bp 0x7fff101f6610 sp 0x7fff101f6608
+READ of size 8 at 0x509000000063 thread T0
+    #0 0x56addf3c68de in get_bits_long /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavcodec/get_bits.h:436:9
+    #1 0x56addf3c68de in main /home/kenan/ffmpeg_extradata_bugs/poc/bug2_iamf_parse_131.c:36:5
+    #2 0x77914922a1c9 in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #3 0x77914922a28a in __libc_start_main csu/../csu/libc-start.c:360:3
+    #4 0x56addf2ed3a4 in _start (/home/kenan/ffmpeg_extradata_bugs/poc/bug2_iamf_parse_131+0x2d3a4) (BuildId: 3012096e716b31e2d1e11ca54c6c47adc0d4ad71)
+
+0x509000000063 is located 1 bytes after 34-byte region [0x509000000040,0x509000000062)
+allocated by thread T0 here:
+    #0 0x56addf388cdb in posix_memalign (/home/kenan/ffmpeg_extradata_bugs/poc/bug2_iamf_parse_131+0xc8cdb) (BuildId: 3012096e716b31e2d1e11ca54c6c47adc0d4ad71)
+    #1 0x56addf3c6a0e in av_malloc /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavutil/mem.c:107:9
+    #2 0x56addf3c67b8 in main /home/kenan/ffmpeg_extradata_bugs/poc/bug2_iamf_parse_131.c:25:26
+    #3 0x77914922a1c9 in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #4 0x77914922a28a in __libc_start_main csu/../csu/libc-start.c:360:3
+    #5 0x56addf2ed3a4 in _start (/home/kenan/ffmpeg_extradata_bugs/poc/bug2_iamf_parse_131+0x2d3a4) (BuildId: 3012096e716b31e2d1e11ca54c6c47adc0d4ad71)
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavcodec/get_bits.h:436:9 in get_bits_long
+Shadow bytes around the buggy address:
+  0x508ffffffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x508ffffffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x508ffffffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x508fffffff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x508fffffff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x509000000000: fa fa fa fa fa fa fa fa 00 00 00 00[02]fa fa fa
+  0x509000000080: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000180: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000200: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000280: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==98013==ABORTING
+
+******* bug3_iamf_parse_44 ********
+=================================================================
+==98015==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x509000000057 at pc 0x5df78398a92c bp 0x7ffceb2c96f0 sp 0x7ffceb2c96e8
+READ of size 8 at 0x509000000057 thread T0
+    #0 0x5df78398a92b in get_bits_long /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavcodec/get_bits.h:436:9
+    #1 0x5df78398a92b in main /home/kenan/ffmpeg_extradata_bugs/poc/bug3_iamf_parse_44.c:37:5
+    #2 0x7afc4dc2a1c9 in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #3 0x7afc4dc2a28a in __libc_start_main csu/../csu/libc-start.c:360:3
+    #4 0x5df7838b13a4 in _start (/home/kenan/ffmpeg_extradata_bugs/poc/bug3_iamf_parse_44+0x2d3a4) (BuildId: a879bf38dbf166db29473ec329b0b5eccfe35a14)
+
+0x509000000057 is located 4 bytes after 19-byte region [0x509000000040,0x509000000053)
+allocated by thread T0 here:
+    #0 0x5df78394ccdb in posix_memalign (/home/kenan/ffmpeg_extradata_bugs/poc/bug3_iamf_parse_44+0xc8cdb) (BuildId: a879bf38dbf166db29473ec329b0b5eccfe35a14)
+    #1 0x5df78398aa4e in av_malloc /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavutil/mem.c:107:9
+    #2 0x5df78398a7b8 in main /home/kenan/ffmpeg_extradata_bugs/poc/bug3_iamf_parse_44.c:24:26
+    #3 0x7afc4dc2a1c9 in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #4 0x7afc4dc2a28a in __libc_start_main csu/../csu/libc-start.c:360:3
+    #5 0x5df7838b13a4 in _start (/home/kenan/ffmpeg_extradata_bugs/poc/bug3_iamf_parse_44+0x2d3a4) (BuildId: a879bf38dbf166db29473ec329b0b5eccfe35a14)
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavcodec/get_bits.h:436:9 in get_bits_long
+Shadow bytes around the buggy address:
+  0x508ffffffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x508ffffffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x508ffffffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x508fffffff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x508fffffff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x509000000000: fa fa fa fa fa fa fa fa 00 00[03]fa fa fa fa fa
+  0x509000000080: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000180: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000200: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000280: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==98015==ABORTING
+
+****** bug4_mov_935 ***********
+=================================================================
+==98017==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x50900000004b at pc 0x594c2e3df897 bp 0x7ffdadb93d90 sp 0x7ffdadb93d88
+READ of size 8 at 0x50900000004b thread T0
+    #0 0x594c2e3df896 in get_bits_long /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavcodec/get_bits.h:436:9
+    #1 0x594c2e3df896 in main /home/kenan/ffmpeg_extradata_bugs/poc/bug4_mov_935.c:35:5
+    #2 0x7a61d902a1c9 in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #3 0x7a61d902a28a in __libc_start_main csu/../csu/libc-start.c:360:3
+    #4 0x594c2e3063a4 in _start (/home/kenan/ffmpeg_extradata_bugs/poc/bug4_mov_935+0x2d3a4) (BuildId: 672398e3c8a43c33df01a793c615588b7f07c2a0)
+
+0x50900000004b is located 3 bytes after 8-byte region [0x509000000040,0x509000000048)
+allocated by thread T0 here:
+    #0 0x594c2e3a1cdb in posix_memalign (/home/kenan/ffmpeg_extradata_bugs/poc/bug4_mov_935+0xc8cdb) (BuildId: 672398e3c8a43c33df01a793c615588b7f07c2a0)
+    #1 0x594c2e3df9be in av_malloc /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavutil/mem.c:107:9
+    #2 0x594c2e3df7b8 in main /home/kenan/ffmpeg_extradata_bugs/poc/bug4_mov_935.c:23:26
+    #3 0x7a61d902a1c9 in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #4 0x7a61d902a28a in __libc_start_main csu/../csu/libc-start.c:360:3
+    #5 0x594c2e3063a4 in _start (/home/kenan/ffmpeg_extradata_bugs/poc/bug4_mov_935+0x2d3a4) (BuildId: 672398e3c8a43c33df01a793c615588b7f07c2a0)
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavcodec/get_bits.h:436:9 in get_bits_long
+Shadow bytes around the buggy address:
+  0x508ffffffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x508ffffffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x508ffffffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x508fffffff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x508fffffff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x509000000000: fa fa fa fa fa fa fa fa 00[fa]fa fa fa fa fa fa
+  0x509000000080: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000180: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000200: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000280: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==98017==ABORTING
+
+****** bug5_wmaenc_68 *********
+=================================================================
+==98019==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x509000000047 at pc 0x621f047fb90d bp 0x7ffe3cc543f0 sp 0x7ffe3cc543e8
+READ of size 8 at 0x509000000047 thread T0
+    #0 0x621f047fb90c in get_bits_long /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavcodec/get_bits.h:436:9
+    #1 0x621f047fb90c in main /home/kenan/ffmpeg_extradata_bugs/poc/bug5_wmaenc_68.c:37:5
+    #2 0x79a68f62a1c9 in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #3 0x79a68f62a28a in __libc_start_main csu/../csu/libc-start.c:360:3
+    #4 0x621f047223a4 in _start (/home/kenan/ffmpeg_extradata_bugs/poc/bug5_wmaenc_68+0x2d3a4) (BuildId: 32f0757e1cb731ee79fc9faeba45f5dc02d67ae4)
+
+0x509000000047 is located 3 bytes after 4-byte region [0x509000000040,0x509000000044)
+allocated by thread T0 here:
+    #0 0x621f047bdcdb in posix_memalign (/home/kenan/ffmpeg_extradata_bugs/poc/bug5_wmaenc_68+0xc8cdb) (BuildId: 32f0757e1cb731ee79fc9faeba45f5dc02d67ae4)
+    #1 0x621f047fba2e in av_malloc /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavutil/mem.c:107:9
+    #2 0x621f047fb7bb in main /home/kenan/ffmpeg_extradata_bugs/poc/bug5_wmaenc_68.c:25:26
+    #3 0x79a68f62a1c9 in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #4 0x79a68f62a28a in __libc_start_main csu/../csu/libc-start.c:360:3
+    #5 0x621f047223a4 in _start (/home/kenan/ffmpeg_extradata_bugs/poc/bug5_wmaenc_68+0x2d3a4) (BuildId: 32f0757e1cb731ee79fc9faeba45f5dc02d67ae4)
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavcodec/get_bits.h:436:9 in get_bits_long
+Shadow bytes around the buggy address:
+  0x508ffffffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x508ffffffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x508ffffffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x508fffffff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x508fffffff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x509000000000: fa fa fa fa fa fa fa fa[04]fa fa fa fa fa fa fa
+  0x509000000080: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000180: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000200: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000280: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==98019==ABORTING
+
+********* bug6_wmaenc_75 *********
+=================================================================
+==98021==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x50900000004b at pc 0x56974289997d bp 0x7fff17f3d690 sp 0x7fff17f3d688
+READ of size 8 at 0x50900000004b thread T0
+    #0 0x56974289997c in get_bits_long /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavcodec/get_bits.h:436:9
+    #1 0x56974289997c in main /home/kenan/ffmpeg_extradata_bugs/poc/bug6_wmaenc_75.c:44:5
+    #2 0x775b4e62a1c9 in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #3 0x775b4e62a28a in __libc_start_main csu/../csu/libc-start.c:360:3
+    #4 0x5697427c03a4 in _start (/home/kenan/ffmpeg_extradata_bugs/poc/bug6_wmaenc_75+0x2d3a4) (BuildId: 5c8ba2d53c68aa3a6418bb653ae0f4e8f10e107a)
+
+0x50900000004b is located 1 bytes after 10-byte region [0x509000000040,0x50900000004a)
+allocated by thread T0 here:
+    #0 0x56974285bcdb in posix_memalign (/home/kenan/ffmpeg_extradata_bugs/poc/bug6_wmaenc_75+0xc8cdb) (BuildId: 5c8ba2d53c68aa3a6418bb653ae0f4e8f10e107a)
+    #1 0x569742899a9e in av_malloc /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavutil/mem.c:107:9
+    #2 0x569742899e11 in av_mallocz /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavutil/mem.c:258:17
+    #3 0x5697428997bb in main /home/kenan/ffmpeg_extradata_bugs/poc/bug6_wmaenc_75.c:25:26
+    #4 0x775b4e62a1c9 in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #5 0x775b4e62a28a in __libc_start_main csu/../csu/libc-start.c:360:3
+    #6 0x5697427c03a4 in _start (/home/kenan/ffmpeg_extradata_bugs/poc/bug6_wmaenc_75+0x2d3a4) (BuildId: 5c8ba2d53c68aa3a6418bb653ae0f4e8f10e107a)
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow /home/kenan/ffmpeg_extradata_bugs/ffmpeg/libavcodec/get_bits.h:436:9 in get_bits_long
+Shadow bytes around the buggy address:
+  0x508ffffffd80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x508ffffffe00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x508ffffffe80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x508fffffff00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x508fffffff80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x509000000000: fa fa fa fa fa fa fa fa 00[02]fa fa fa fa fa fa
+  0x509000000080: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000180: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000200: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x509000000280: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==98021==ABORTING
+
+
+
