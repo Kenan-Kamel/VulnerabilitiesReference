@@ -4,7 +4,11 @@ This folder documents three FFmpeg extradata-padding vulnerabilities that I orig
 
 The issues involve insufficient padding of extradata buffers before later bitreader access, leading to heap out-of-bounds reads (CWE-125) and crash / denial-of-service conditions under crafted inputs.
 
-The upstream fixes were merged into FFmpeg master in PR #22988 ("Fix various extradata padding issues") and related commits.
+The upstream fixes were merged into FFmpeg master in PR #22988 ("Fix various extradata padding issues") and related commits:
+
+f3c92329e9291999542664b76a6500927a78b43b
+2032efe9ebb2d030ff257d72013df00f137e7766
+f3c92329e9291999542664b76a6500927a78b43b
 
 ## Included vulnerabilities
 
