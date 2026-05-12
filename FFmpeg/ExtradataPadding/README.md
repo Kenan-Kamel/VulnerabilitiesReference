@@ -12,6 +12,7 @@ The upstream fixes were merged into FFmpeg master in PR #22988 ("Fix various ext
    - Component: `libavcodec/wmaenc.c`
    - Fix commit: `f3c92329e9`
    - Summary: missing required padding in WMA extradata allocation paths
+   - Crashes:- refer to the folder [./group_3_wma]
 
 2. **MOV**
    - Component: `libavformat/mov.c`
