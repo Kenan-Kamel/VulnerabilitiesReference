@@ -41,7 +41,7 @@ The upstream fixes were merged into FFmpeg master in PR #22988 ("Fix various ext
    - Functions: `fill_codec_config`, `update_extradata`
    - Fix: merged in PR #22988 / master commit `016a241102`
    - Summary: copied extradata lacked required padding before GetBitContext-based access
-   - The commit that introduced the issue was originally added in  
+   - This issue affects `libavformat/iamf_writer.c`, where IAMF writer extradata was copied/allocated without the required padding before later bitreader access. Crafted input could trigger a heap-buffer-overflow on read and cause a crash / denial-of-service condition. The issue was introduced by commits `25835e25931c28b6edb01a0e639c9be0770b519f` and `56d630e6c2ae3033a124133c42308b5edbd0fc98`, and fixed upstream in `8439e0203744a30d280668fcd086f74ed5001da1`.
    - Crashes:- refer to the folder [AsanCrashes Report group 1](./AsanCrashesReports/group_1_iamf)
 
 For the full crashes, please refer to [Full crashes](./AsanCrashesReports/Asan_Full_crashes_ffmpeg_bugs.txt)
