@@ -41,4 +41,4 @@ The upstream fixes were merged into FFmpeg master in PR #22988 ("Fix various ext
 
 ## Notes
 
-Initial analysis identified additional related crash sites during review of extradata padding behavior. However, the upstream merged fixes and CVE request scope are limited to the three vulnerabilities above. The total found in relation to the CVEs is 6, and only 3 represent uniqe vulnerabilities.
+Initial analysis identified additional related crash sites during review of extradata padding behavior. However, the upstream merged fixes and CVE request scope are limited to the three vulnerabilities above. The total found in relation to the CVEs is 6, and only 3 represent unique vulnerabilities. However, we included all 6 for future reference. 
