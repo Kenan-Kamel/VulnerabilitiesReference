@@ -10,11 +10,18 @@ The upstream fixes were merged into FFmpeg master in PR #22988 ("Fix various ext
 - 2032efe9ebb2d030ff257d72013df00f137e7766
 - f3c92329e9291999542664b76a6500927a78b43b
 
+- Links:
+(https://git.ffmpeg.org/gitweb/ffmpeg.git/commit/23227a444de4a8f7696f46660cdd044b460f7e47)
+(https://code.ffmpeg.org/FFmpeg/FFmpeg/pulls/22988)
+(https://git.ffmpeg.org/gitweb/ffmpeg.git/commit/8439e0203744a30d280668fcd086f74ed5001da1)
+
+
 ## Included vulnerabilities
 
 1. **WMA encoder**
    - Component: `libavcodec/wmaenc.c`
    - Fix commit: `f3c92329e9`
+   - https://git.ffmpeg.org/gitweb/ffmpeg.git/commit/23227a444de4a8f7696f46660cdd044b460f7e47
    - Summary: missing required padding in WMA extradata allocation paths
    - The commit that introduced the issue is (d2a4e4b9cc9a0c2661e1c1d6f6b51babac2cec1b), back in 2014.
    - Crashes:- refer to the folder [AsanCrashes Report group 3](./AsanCrashesReports/group_3_wma)
