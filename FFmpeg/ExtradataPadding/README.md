@@ -58,6 +58,7 @@ For the full crashes, please refer to [Full crashes](./AsanCrashesReports/Asan_F
 - Hang Zhang — Indiana University Bloomington
 - Farhan Saif — University of Illinois Chicago
 - Roberto Bertolini — University of Illinois Chicago
+- SySec Research Group - University of Illinois Chicago
 
 ## Notes
 
