@@ -24,6 +24,7 @@ The upstream fixes were merged into FFmpeg master in PR #22988 ("Fix various ext
    - https://git.ffmpeg.org/gitweb/ffmpeg.git/commit/23227a444de4a8f7696f46660cdd044b460f7e47
    - Summary: missing required padding in WMA extradata allocation paths
    - The commit that introduced the issue is (d2a4e4b9cc9a0c2661e1c1d6f6b51babac2cec1b), back in 2014.
+   - This affects version 2.4 until the fix is committed in master at 8.2
    - Crashes:- refer to the folder [AsanCrashes Report group 3](./AsanCrashesReports/group_3_wma)
 
 2. **MOV**
