@@ -12,19 +12,21 @@ The upstream fixes were merged into FFmpeg master in PR #22988 ("Fix various ext
    - Component: `libavcodec/wmaenc.c`
    - Fix commit: `f3c92329e9`
    - Summary: missing required padding in WMA extradata allocation paths
-   - Crashes:- refer to the folder [./group_3_wma]
+   - Crashes:- refer to the folder [AsanCrashes Report group 3](./AsanCrashesReports/group_3_wma)
 
 2. **MOV**
    - Component: `libavformat/mov.c`
    - Function: `mov_read_iacb`
    - Fix: merged in PR #22988 / master commit `016a241102`
    - Summary: insufficiently padded extradata in MOV parsing path
+   - Crashes:- refer to the folder [AsanCrashes Report group 2](./AsanCrashesReports/group_2_iamf_mov)
 
 3. **IAMF writer**
    - Component: `libavformat/iamf_writer.c`
    - Functions: `fill_codec_config`, `update_extradata`
    - Fix: merged in PR #22988 / master commit `016a241102`
    - Summary: copied extradata lacked required padding before GetBitContext-based access
+   - Crashes:- refer to the folder [AsanCrashes Report group 1](./AsanCrashesReports/group_1_iamf)
 
 ## Disclosure / attribution / MITRE submitter
 
